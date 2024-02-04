@@ -1,0 +1,25 @@
+import boto3
+
+# EC2 instance creation
+ec2 = boto3.resource('ec2')
+
+# Replace 'your_ami_id' and 'your_instance_type' with appropriate values
+instance = ec2.create_instances(
+    ImageId='your_ami_id',
+    InstanceType='your_instance_type',
+    MinCount=1,
+    MaxCount=1
+)
+
+# Accessing the created instance
+created_instance_id = instance[0].id
+print(f"EC2 instance created with ID: {created_instance_id}")
+
+# S3 interaction
+s3 = boto3.client('s3')
+
+# Replace 'your_bucket_name' and 'your_object_key' with appropriate values
+bucket_name = 'your_bucket_name'
+object_key = 'your_object_key'
+s3.upload_file('local_file.txt', bucket_name, object_key)
+print(f"File uploaded to S3: s3://{bucket_name}/{object_key}")
